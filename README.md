@@ -80,9 +80,12 @@ Página HTML simples e intuitiva (Visualização dos dados)
 
 - [QR Code Monkey](https://www.qrcode-monkey.com/) → Gera um por um, mas é fácil de usar.
 - [QR code API](https://goqr.me/api/) → API gratuita para gerar em massa.
-- 🟢 Usando `Python` → para gerar em massa.  
+- 🟢 Usando `Python` → para gerar em massa (com logo).  
 
 #### Gerando com Python
+
+> [!TIP]
+> Documentação da biblioteca `qrcode` → [Clique aqui](https://pypi.org/project/qrcode/)
 
 1. Instalação das bibliotecas qrcode e Pillow:
 ```bash
@@ -91,25 +94,74 @@ pip install qrcode[pil]
 
 2. Código
 ```py
-import qrcode
 import os
+import qrcode
+from PIL import Image
 
-# Pasta para salvar os QR Codes
-if not os.path.exists("qrcodes"):
-    os.makedirs("qrcodes")
+def generateQRCodeWithLogo(data, outputFolder, filename, logoPath):
+    # Cria a pasta de saída se não existir
+    os.makedirs(outputFolder, exist_ok=True)
+    
+    # Configura o QR code
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(data)
+    qr.make(fit=True)
+    
+    # Criar imagem do QR code
+    img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
+    
+    logo = Image.open(logoPath)
+    
+    # Calcula tamanho máximo da logo (20% do QR code)
+    max_logo_size = min(img.size) // 5
+    logo.thumbnail((max_logo_size, max_logo_size), Image.LANCZOS)
+    
+    # Calcula posição para centralizar o logo
+    pos = ((img.size[0] - logo.size[0]) // 2, (img.size[1] - logo.size[1]) // 2)
+    
+    # Colar o logo no QR code
+    img.paste(logo, pos)
+    
+    # Salvar imagem
+    img.save(os.path.join(outputFolder, f"{filename}.png"))
 
-# Lista de IDs únicos (ex: ["ID1", "ID2", ...])
-ids = []
+def batchGenerateQRCodeWithLogo(outputFolder, logoPath):
+    dataList = []
 
-for i in range(0, 100): # Gera 100 IDs
-    ids.append(f"ID{i}")
+    for i in range(1, 11): # Gera 10 IDs
+        dataList.append({
+            "data": f"exampleData{i}",
+            "filename": f"qr-code-{i}"
+        })
 
-for id in ids:
-    img = qrcode.make(id)
-    img.save(f"qrcodes/{id}.png")
+    for item in dataList:
+        print(f"Gerando QR code para: {item['filename']}")
 
-print("QR Codes gerados com sucesso!")
+        generateQRCodeWithLogo(
+            data=item['data'],
+            outputFolder=outputFolder,
+            filename=item['filename'],
+            logoPath=logoPath
+        )
+
+
+outputFolder = "qrcodes"
+
+logoPath = "logoPath"
+
+batchGenerateQRCodeWithLogo(outputFolder, logoPath)
+
+print(f"QR codes com logo gerados na pasta '{outputFolder}'")
 ```
+
+3. Exemplo de resultado
+
+![batista-code](https://github.com/user-attachments/assets/133c27a8-41bc-4a99-8bed-b241ccf8968b)
 
 <br>
 

@@ -13,6 +13,7 @@ Criação de um sistema para Controle de presença, visando a segurança de alun
   - [Utilização do `ESP32` para **IOT**](#esp32)
   - [Implementação do `ESP32`](#implementacao)
   - [Implementação de Banco de Dados (futuro)](#implementacao-db)
+- [⚙ Geração de QR code](#qrcode)
 - [📄 Referências](#ref)
   
 </details>
@@ -26,6 +27,8 @@ Criação de um sistema para Controle de presença, visando a segurança de alun
 ### Utilização do `ESP32` para **IOT**
 
 ![image](https://github.com/user-attachments/assets/7a1aac7a-9dac-44dd-80ef-18ae68d61414)
+
+![image](https://github.com/user-attachments/assets/ad550937-5afc-4acb-95ad-b3b58e88a81b)
 
 O microcontrolador `ESP32` é amplamente utilizado para a criação de Web Servers embarcados, graças ao seu poder de processamento, conectividade Wi-Fi e suporte a protocolos modernos. Abaixo estão as principais características, benefícios e funcionamento nesse contexto:
 
@@ -72,8 +75,46 @@ Página HTML simples e intuitiva (Visualização dos dados)
 
 <br>
 
+<a name="qrcode"></a>
+### ⚙ Geração de QR code
+
+- [QR Code Monkey](https://www.qrcode-monkey.com/) → Gera um por um, mas é fácil de usar.
+- [QR code API](https://goqr.me/api/) → API gratuita para gerar em massa.
+- 🟢 Usando `Python` → para gerar em massa.  
+
+#### Gerando com Python
+
+1. Instalação das bibliotecas qrcode e Pillow:
+```bash
+pip install qrcode[pil]
+```
+
+2. Código
+```py
+import qrcode
+import os
+
+# Pasta para salvar os QR Codes
+if not os.path.exists("qrcodes"):
+    os.makedirs("qrcodes")
+
+# Lista de IDs únicos (ex: ["ID1", "ID2", ...])
+ids = []
+
+for i in range(0, 100): # Gera 100 IDs
+    ids.append(f"ID{i}")
+
+for id in ids:
+    img = qrcode.make(id)
+    img.save(f"qrcodes/{id}.png")
+
+print("QR Codes gerados com sucesso!")
+```
+
+<br>
+
 <a name="ref"></a>
 ### 📄 Referências
-- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Send data from Arduino to webserver | ESP8266+Arduino+database](https://www.youtube.com/watch?v=DTk3yQow5bM&list=PLg4zINck8MBqisx_ZW1l_xWla1KbbXyNV)
-- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [WebServer: Arduino UNO com WiFi ESP01](https://youtu.be/_WPXhNV07Q8?si=PmHWCHl0Lrf5LABd)
-- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Arduino Retornando Dados no Formato JSON no Web Server](https://youtu.be/eSMZxWEYgZs?si=KtAnpWq5ySvwE1lo)
+- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [WebServer: Arduino UNO com WiFi ESP01](https://youtu.be/_WPXhNV07Q8?si=PmHWCHl0Lrf5LABd) → configuração e explicação arduino + ESP8266 (ESP01)
+- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Arduino Retornando Dados no Formato JSON no Web Server](https://youtu.be/eSMZxWEYgZs?si=KtAnpWq5ySvwE1lo) → configuração do arduino + Ethernet Shield para retorno de JSON no web server
+- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Program ESP32-CAM using Arduino UNO](https://easyelectronicsproject.com/esp32-projects/program-esp32cam-arduino/) → configuração da ESP32 cam + arduino

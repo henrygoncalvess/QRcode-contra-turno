@@ -75,6 +75,10 @@ Usando bibliotecas como ESPAsyncWebServer ou WebServer, define-se rotas (ex.: /,
 4. Interface do Usuário  
 Página HTML simples e intuitiva, Planilha Excel (Visualização dos dados)
 
+#### Exemplo com imagem
+
+![fluxo básico com imagem](images/fluxo_code.png)
+
 <a name="implementacao-db"></a>
 ### Implementação de Banco de Dados (futuro)
 

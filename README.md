@@ -6,6 +6,11 @@ Criação de um sistema para Controle de presença, visando a segurança de alun
 
 <br>
 
+**licença e tecnologias utilizadas**:  
+<img src="https://img.shields.io/github/license/henrygoncalvess/QRcode-contra-turno?style=for-the-badge&labelColor=gray&color=97ca00"> <a href="https://docs.python.org/3/"><img src="https://img.shields.io/badge/python-3.11.9-3776AB?style=for-the-badge&logo=python&logoColor=3776AB&labelColor=gray"></a>
+
+<br>
+
 <details open="open">
 <summary>Tabela de Conteúdos</summary>
   
@@ -13,6 +18,7 @@ Criação de um sistema para Controle de presença, visando a segurança de alun
   - [Utilização do `ESP32` para **IOT**](#esp32)
   - [Implementação do `ESP32`](#implementacao)
   - [Implementação de Banco de Dados (futuro)](#implementacao-db)
+- [🛠 Recursos Gerais](#recursos)
 - [⚙ Geração de QR code](#qrcode)
 - [📄 Referências](#ref)
   
@@ -26,9 +32,11 @@ Criação de um sistema para Controle de presença, visando a segurança de alun
 <a name="esp32"></a>
 ### Utilização do `ESP32` para **IOT**
 
-![image](https://github.com/user-attachments/assets/7a1aac7a-9dac-44dd-80ef-18ae68d61414)
+![exemplo com ESP32](images/ESP32_iot.png)
 
-![image](https://github.com/user-attachments/assets/ad550937-5afc-4acb-95ad-b3b58e88a81b)
+### Utilização do `ESP32` para escaneamento de QR Code
+
+![exemplo com ESP32](images/ESP32CAM_code.png)
 
 O microcontrolador `ESP32` é amplamente utilizado para a criação de Web Servers embarcados, graças ao seu poder de processamento, conectividade Wi-Fi e suporte a protocolos modernos. Abaixo estão as principais características, benefícios e funcionamento nesse contexto:
 
@@ -52,7 +60,7 @@ Utilização em modo `Station` (STA)
 1. O `ESP32` conecta-se a um roteador Wi-Fi existente.
 2. O servidor web fica acessível via IP local (ex: 192.168.1.100).
 
-Exemplo de Funcionamento
+Exemplo de Funcionamento (Fluxo Básico)
 
 1. Inicialização do Wi-Fi  
 O ESP32 conecta-se a uma rede
@@ -65,7 +73,7 @@ Usando bibliotecas como ESPAsyncWebServer ou WebServer, define-se rotas (ex.: /,
 `POST:` Recebe dados de formulários (ex: acionar um relé).
 
 4. Interface do Usuário  
-Página HTML simples e intuitiva (Visualização dos dados)
+Página HTML simples e intuitiva, Planilha Excel (Visualização dos dados)
 
 <a name="implementacao-db"></a>
 ### Implementação de Banco de Dados (futuro)
@@ -75,12 +83,25 @@ Página HTML simples e intuitiva (Visualização dos dados)
 
 <br>
 
+<a name="recursos"></a>
+### 🛠 Recursos Gerais
+
+- ESP32 Cam
+- ESP32 Module
+- Arduino UNO
+- **opcional:** ESP32-CAM-MB
+- **opcional:** ESP8266 (ESP01)
+- Jumpers Elétricos
+- LEDs
+
+<br>
+
 <a name="qrcode"></a>
 ### ⚙ Geração de QR code
 
-- [QR Code Monkey](https://www.qrcode-monkey.com/) → Gera um por um, mas é fácil de usar.
-- [QR code API](https://goqr.me/api/) → API gratuita para gerar em massa.
-- 🟢 Usando `Python` → para gerar em massa (com logo).  
+⚫[QR Code Monkey](https://www.qrcode-monkey.com/) → Gera um por um, mas é fácil de usar.
+⚫[QR code API](https://goqr.me/api/) → API gratuita para gerar em massa.
+🟢 Usando `Python` → para gerar em massa (com logo).  
 
 #### Gerando com Python
 
@@ -112,7 +133,7 @@ def generateQRCodeWithLogo(data, outputFolder, filename, logoPath):
     qr.add_data(data)
     qr.make(fit=True)
     
-    # Criar imagem do QR code
+    # Cria imagem do QR code
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
     
     logo = Image.open(logoPath)
@@ -121,13 +142,13 @@ def generateQRCodeWithLogo(data, outputFolder, filename, logoPath):
     max_logo_size = min(img.size) // 5
     logo.thumbnail((max_logo_size, max_logo_size), Image.LANCZOS)
     
-    # Calcula posição para centralizar o logo
+    # Calcula posição para centralizar a logo
     pos = ((img.size[0] - logo.size[0]) // 2, (img.size[1] - logo.size[1]) // 2)
     
-    # Colar o logo no QR code
+    # Cola a logo no QR code
     img.paste(logo, pos)
     
-    # Salvar imagem
+    # Salva imagem
     img.save(os.path.join(outputFolder, f"{filename}.png"))
 
 def batchGenerateQRCodeWithLogo(outputFolder, logoPath):
@@ -135,12 +156,13 @@ def batchGenerateQRCodeWithLogo(outputFolder, logoPath):
 
     for i in range(1, 11): # Gera 10 IDs
         dataList.append({
-            "data": f"exampleData{i}",
-            "filename": f"qr-code-{i}"
+            "data": f"ID{i}",
+            "filename": f"QRcode-{i}"
         })
 
     for item in dataList:
-        print(f"Gerando QR code para: {item['filename']}")
+        print(f"Arquivo: {item['filename']}")
+        print(f"Dado: {item['data']}")
 
         generateQRCodeWithLogo(
             data=item['data'],
@@ -156,12 +178,12 @@ logoPath = "logoPath"
 
 batchGenerateQRCodeWithLogo(outputFolder, logoPath)
 
-print(f"QR codes com logo gerados na pasta '{outputFolder}'")
+print(f"QR codes gerados na pasta '{outputFolder}'")
 ```
 
 3. Exemplo de resultado
 
-![batista-code](https://github.com/user-attachments/assets/133c27a8-41bc-4a99-8bed-b241ccf8968b)
+![exemplo de QR Code com logo do Batista Renzi](images/batista_code.png)
 
 <br>
 
@@ -170,3 +192,6 @@ print(f"QR codes com logo gerados na pasta '{outputFolder}'")
 - <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [WebServer: Arduino UNO com WiFi ESP01](https://youtu.be/_WPXhNV07Q8?si=PmHWCHl0Lrf5LABd) → configuração e explicação arduino + ESP8266 (ESP01)
 - <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Arduino Retornando Dados no Formato JSON no Web Server](https://youtu.be/eSMZxWEYgZs?si=KtAnpWq5ySvwE1lo) → configuração do arduino + Ethernet Shield para retorno de JSON no web server
 - <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Program ESP32-CAM using Arduino UNO](https://easyelectronicsproject.com/esp32-projects/program-esp32cam-arduino/) → configuração da ESP32 cam + arduino
+- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Arduino IDE + ESP32 CAM | ESP32-CAM QR Code Scanner](https://www.youtube.com/watch?v=tZV7b8dGgw4) → ESP32 CAM + ESP32-CAM-MB
+- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Criando um Web Server com ESP32](https://www.youtube.com/watch?v=ZSyqNFGAF8o) → exemplo da biblioteca `WiFi` do ESP32
+- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [ESP32 Documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/index.html) → WiFi API, Wi-Fi STA Example

@@ -103,9 +103,9 @@ Página HTML simples e intuitiva, Planilha Excel (Visualização dos dados)
 <a name="qrcode"></a>
 ### ⚙ Geração de QR code
 
-⚫[QR Code Monkey](https://www.qrcode-monkey.com/) → Gera um por um, mas é fácil de usar.
-⚫[QR code API](https://goqr.me/api/) → API gratuita para gerar em massa.
-🟢 Usando `Python` → para gerar em massa (com logo).  
+⚫[QR Code Monkey](https://www.qrcode-monkey.com/) → Gera um por um, mas é fácil de usar.  
+⚫[QR code API](https://goqr.me/api/) → API gratuita para gerar em massa.  
+🟢 Usando `Python` → para gerar em massa (com logo).
 
 #### Gerando com Python
 

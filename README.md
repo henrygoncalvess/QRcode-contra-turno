@@ -30,7 +30,7 @@ Criação de um sistema para Controle de presença, visando a segurança de alun
 
 ## 💡 Ideia Inicial
 <a name="esp32"></a>
-### Utilização do `ESP32` para **IOT**
+### Utilização do `ESP32` para **IOT** (rede de dispositivos físicos que são conectados à internet e podem coletar e compartilhar dados)
 
 ![exemplo com ESP32](images/ESP32_iot.png)
 
@@ -38,7 +38,7 @@ Criação de um sistema para Controle de presença, visando a segurança de alun
 
 ![exemplo com ESP32](images/ESP32CAM_code.png)
 
-O microcontrolador `ESP32` é amplamente utilizado para a criação de Web Servers embarcados, graças ao seu poder de processamento, conectividade Wi-Fi e suporte a protocolos modernos. Abaixo estão as principais características, benefícios e funcionamento nesse contexto:
+O microcontrolador `ESP32` é amplamente utilizado para a criação de Web Servers embarcados (servidor web que está integrado em um dispositivo, como um microcontrolador, permitindo que ele ofereça serviços web, como páginas HTML, sem a necessidade de um servidor web separado), graças ao seu poder de processamento, conectividade Wi-Fi e suporte a protocolos modernos. Abaixo estão as principais características, benefícios e funcionamento nesse contexto:
 
 - Baixo Custo e Alto Desempenho  
 Comparado a soluções como Raspberry Pi, o ESP32 é mais barato e consome menos energia, sendo ideal para **IoT** (rede de dispositivos físicos que são conectados à internet e podem coletar e compartilhar dados).
@@ -97,6 +97,7 @@ Página HTML simples e intuitiva, Planilha Excel (Visualização dos dados)
 - **opcional:** ESP8266 (ESP01)
 - Jumpers Elétricos
 - LEDs
+- Resistores
 
 <br>
 

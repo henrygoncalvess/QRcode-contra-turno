@@ -200,3 +200,5 @@ print(f"QR codes gerados na pasta '{outputFolder}'")
 - <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Arduino IDE + ESP32 CAM | ESP32-CAM QR Code Scanner](https://www.youtube.com/watch?v=tZV7b8dGgw4) → ESP32 CAM + ESP32-CAM-MB
 - <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Criando um Web Server com ESP32](https://www.youtube.com/watch?v=ZSyqNFGAF8o) → exemplo da biblioteca `WiFi` do ESP32
 - <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [ESP32 Documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/index.html) → WiFi API, Wi-Fi STA Example
+- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [
+Sending Data from ESP32 or ESP8266 to Google Sheets](https://youtu.be/3V1S0Cj4mas?si=nfMsxMOIjSp5avWR) → ESP32 + google sheets

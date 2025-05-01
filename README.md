@@ -34,7 +34,7 @@ Criação de um sistema para Controle de presença, visando a segurança de alun
 
 ![exemplo com ESP32](images/ESP32_iot.png)
 
-### Utilização do `ESP32` para escaneamento de QR Code
+### Utilização do `ESP32 Cam` para escaneamento de QR Code
 
 ![exemplo com ESP32](images/ESP32CAM_code.png)
 
@@ -82,7 +82,7 @@ Página HTML simples e intuitiva, Planilha Excel (Visualização dos dados)
 <a name="implementacao-db"></a>
 ### Implementação de Banco de Dados (futuro)
 
-- [ ] Escolha do Banco de dados para armazenar registros
+- [x] Escolha do Banco de dados para armazenar registros (MySQL)
 - [ ] Implementação e Conexão com `ESP32`
 
 <br>
@@ -118,87 +118,22 @@ Página HTML simples e intuitiva, Planilha Excel (Visualização dos dados)
 pip install qrcode[pil]
 ```
 
-2. Código
-```py
-import os
-import qrcode
-from PIL import Image
-
-def generateQRCodeWithLogo(data, outputFolder, filename, logoPath):
-    # Cria a pasta de saída se não existir
-    os.makedirs(outputFolder, exist_ok=True)
-    
-    # Configura o QR code
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_H,
-        box_size=10,
-        border=4,
-    )
-    qr.add_data(data)
-    qr.make(fit=True)
-    
-    # Cria imagem do QR code
-    img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-    
-    logo = Image.open(logoPath)
-    
-    # Calcula tamanho máximo da logo (20% do QR code)
-    max_logo_size = min(img.size) // 5
-    logo.thumbnail((max_logo_size, max_logo_size), Image.LANCZOS)
-    
-    # Calcula posição para centralizar a logo
-    pos = ((img.size[0] - logo.size[0]) // 2, (img.size[1] - logo.size[1]) // 2)
-    
-    # Cola a logo no QR code
-    img.paste(logo, pos)
-    
-    # Salva imagem
-    img.save(os.path.join(outputFolder, f"{filename}.png"))
-
-def batchGenerateQRCodeWithLogo(outputFolder, logoPath):
-    dataList = []
-
-    for i in range(1, 11): # Gera 10 IDs
-        dataList.append({
-            "data": f"ID{i}",
-            "filename": f"QRcode-{i}"
-        })
-
-    for item in dataList:
-        print(f"Arquivo: {item['filename']}")
-        print(f"Dado: {item['data']}")
-
-        generateQRCodeWithLogo(
-            data=item['data'],
-            outputFolder=outputFolder,
-            filename=item['filename'],
-            logoPath=logoPath
-        )
-
-
-outputFolder = "qrcodes"
-
-logoPath = "logoPath"
-
-batchGenerateQRCodeWithLogo(outputFolder, logoPath)
-
-print(f"QR codes gerados na pasta '{outputFolder}'")
-```
+2. Código → Clique [AQUI](qr-code.py) para acessar
 
 3. Exemplo de resultado
 
-![exemplo de QR Code com logo do Batista Renzi](images/batista_code.png)
+![exemplo de QR Code com logo do Batista Renzi](images/batista-code.png)
 
 <br>
 
 <a name="ref"></a>
 ### 📄 Referências
-- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [WebServer: Arduino UNO com WiFi ESP01](https://youtu.be/_WPXhNV07Q8?si=PmHWCHl0Lrf5LABd) → configuração e explicação arduino + ESP8266 (ESP01)
-- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Arduino Retornando Dados no Formato JSON no Web Server](https://youtu.be/eSMZxWEYgZs?si=KtAnpWq5ySvwE1lo) → configuração do arduino + Ethernet Shield para retorno de JSON no web server
-- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Program ESP32-CAM using Arduino UNO](https://easyelectronicsproject.com/esp32-projects/program-esp32cam-arduino/) → configuração da ESP32 cam + arduino
-- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Arduino IDE + ESP32 CAM | ESP32-CAM QR Code Scanner](https://www.youtube.com/watch?v=tZV7b8dGgw4) → ESP32 CAM + ESP32-CAM-MB
-- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Criando um Web Server com ESP32](https://www.youtube.com/watch?v=ZSyqNFGAF8o) → exemplo da biblioteca `WiFi` do ESP32
-- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [ESP32 Documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/index.html) → WiFi API, Wi-Fi STA Example
-- <img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [
-Sending Data from ESP32 or ESP8266 to Google Sheets](https://youtu.be/3V1S0Cj4mas?si=nfMsxMOIjSp5avWR) → ESP32 + google sheets
+<img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [WebServer: Arduino UNO com WiFi ESP01](https://youtu.be/_WPXhNV07Q8?si=PmHWCHl0Lrf5LABd) → configuração e explicação arduino + ESP8266 (ESP01)  
+<img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Arduino Retornando Dados no Formato JSON no Web Server](https://youtu.be/eSMZxWEYgZs?si=KtAnpWq5ySvwE1lo) → configuração do arduino + Ethernet Shield para retorno de JSON no web server  
+<img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Program ESP32-CAM using Arduino UNO](https://easyelectronicsproject.com/esp32-projects/program-esp32cam-arduino/) → configuração da ESP32 cam + arduino  
+<img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Arduino IDE + ESP32 CAM | ESP32-CAM QR Code Scanner](https://www.youtube.com/watch?v=tZV7b8dGgw4) → ESP32 CAM + ESP32-CAM-MB  
+<img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Criando um Web Server com ESP32](https://www.youtube.com/watch?v=ZSyqNFGAF8o) → exemplo da biblioteca `WiFi` do ESP32  
+<img src="https://cdn.simpleicons.org/googledocs/FFFFFF/FFFFFF" width=24>&nbsp; [ESP32 Documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/index.html) → WiFi API, Wi-Fi STA Example  
+<img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Sending Data from ESP32 or ESP8266 to Google Sheets](https://youtu.be/3V1S0Cj4mas?si=nfMsxMOIjSp5avWR) → ESP32 + google sheets  
+<img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [ESP8266 Enviando Dados para Planilha do Google via HTTP - Tutorial Completo com Códigos](https://youtu.be/dTB2lD6ToSk?si=Qwb1mgBSHx-CIxTv) → ESP32 + google sheets  
+<img src="https://cdn.simpleicons.org/youtube/FF0000/FF0000" width=24>&nbsp; [Esp32 Data Logger con Google Drive y Hoja de Cálculo 📊](https://youtu.be/L8MWleQVpqM?si=7_VOkyH51vw-rF92) → ESP32 + google sheets  

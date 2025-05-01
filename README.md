@@ -90,14 +90,14 @@ Página HTML simples e intuitiva, Planilha Excel (Visualização dos dados)
 <a name="recursos"></a>
 ### 🛠 Recursos Gerais
 
-- ESP32 Cam
-- ESP32 Module
-- Arduino UNO
-- **opcional:** ESP32-CAM-MB
-- **opcional:** ESP8266 (ESP01)
-- Jumpers Elétricos
-- LEDs
-- Resistores
+- [ ] ESP32 Cam
+- [ ] ESP32 Module
+- [x] Arduino UNO
+- [ ] **opcional:** ESP32-CAM-MB
+- [ ] **opcional:** ESP8266 (ESP01)
+- [x] Jumpers Elétricos
+- [x] LEDs
+- [x] Resistores
 
 <br>
 

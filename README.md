@@ -69,8 +69,8 @@ O ESP32 conecta-se a uma rede
 Usando bibliotecas como ESPAsyncWebServer ou WebServer, define-se rotas (ex.: /, /data).
 
 3. Tratamento de Requisições  
-`GET:` Envia JSON (ex: leitura de sensores).  
-`POST:` Recebe dados de formulários (ex: acionar um relé).
+`POST:` Envia JSON (ex: leitura de sensores).  
+`GET:` Recebe dados de formulários (ex: acionar um relé).
 
 4. Interface do Usuário  
 Página HTML simples e intuitiva, Planilha Excel (Visualização dos dados)
